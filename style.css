@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap")
+layer(demo.base);
+@import url(https://cdn.jsdelivr.net/gh/Brian-Pob/utilities/reset.min.css)
+layer(demo.base);
+@import "https://unpkg.com/open-props/shadows.min.css" layer(demo.base);
+
+:root {
+  --gradient: linear-gradient(to right, hsl(236, 72%, 79%), hsl(237, 63%, 64%));
+
+  --gradient-v: linear-gradient(
+    to bottom,
+    hsl(236, 72%, 79%),
+    hsl(237, 63%, 64%)
+  );
+
+  --blue-lighter: hsl(240, 91%, 98%);
+  --blue-light: hsl(234, 14%, 74%);
+  --blue: hsl(233, 13%, 49%);
+  --blue-dark: hsl(232, 13%, 33%);
+  --purple: hsl(239deg 34% 59%);
+}
+
+body {
+  font-family: "Montserrat";
+  overflow-x: hidden;
+  background: var(--blue-lighter);
+}
+
+.background {
+  position: absolute;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  z-index: -1;
+
+  & > svg {
+    flex: 1;
+    transition: margin-right 50ms ease-in-out, opacity 50ms ease-in-out;
+
+    &:nth-child(1) {
+      margin-top: auto;
+    }
+    &:nth-child(2) {
+      margin-right: -50vw;
+    }
+
+    @media (max-width: 768px) {
+      &:nth-child(1) {
+        opacity: 0;
+      }
+      &:nth-child(2) {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+main {
+  max-width: min(80ch, 100%);
+  display: flex;
+  gap: 2rem;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--blue);
+  padding-block: 3rem;
+}
+
+.plan-switch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.switch {
+  --switch-size: 80px;
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  width: var(--switch-size);
+  aspect-ratio: 2/1;
+
+  border-radius: 1000px;
+  background-image: var(--gradient);
+}
+
+.switch > label {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.switch::before {
+  --switch-padding: 0.6rem;
+
+  content: "";
+  position: absolute;
+  top: calc(var(--switch-padding) / 2);
+  translate: calc(var(--switch-padding) / 2);
+
+  width: calc(var(--switch-size) / 2 - var(--switch-padding));
+  border-radius: 50%;
+  aspect-ratio: 1;
+  background: white;
+  box-shadow: var(--shadow-1);
+
+  transition: translate 100ms ease-in-out;
+}
+
+main:has(input[type="radio"]:nth-child(2):is(:checked)) .annual {
+  display: none;
+}
+
+main:has(input[type="radio"]:nth-child(1):is(:checked)) .monthly {
+  display: none;
+}
+
+.plan-switch:has(input[type="radio"]:nth-child(2):is(:checked))
+  > .switch::before {
+  border-color: green;
+  translate: calc(var(--switch-size) / 2 + var(--switch-padding) / 2);
+}
+
+.plan-switch:has(input[type="radio"]:is(:focus-visible)) > .switch {
+  outline: 2px solid Highlight;
+  outline-offset: 5px;
+}
+
+.price-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  -webkit-margin-before: 1rem;
+          margin-block-start: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.price-card {
+  text-align: center;
+  background: white;
+
+  padding: 2rem;
+  box-shadow: var(--shadow-1);
+  border-radius: 0.75rem;
+
+  min-width: 30ch;
+
+  &:nth-child(2) {
+    background-image: var(--gradient-v);
+    color: white;
+    padding-block: calc(2rem + 1.5rem);
+
+    --border-color: hsl(0 0% 100% / 30%);
+    --cta-color: var(--purple);
+    --cta-bg: linear-gradient(to right, white, white);
+  }
+
+  @media (min-width: 768px) {
+    box-shadow: var(--shadow-2);
+
+    &:nth-child(1) {
+      border-radius: 0.75rem 0 0 0.75rem;
+    }
+
+    &:nth-child(2) {
+      margin-block: -1.5rem;
+    }
+
+    &:nth-child(3) {
+      border-radius: 0 0.75rem 0.75rem 0;
+    }
+  }
+}
+
+.price {
+  font-size: 3rem;
+  padding: 1.5rem;
+}
+
+.feature {
+  border-top: 1px solid;
+  border-color: var(--border-color, hsl(234 14% 74% / 50%));
+  padding-block: 1rem;
+
+  &:last-child {
+    border-bottom: 1px solid;
+    border-color: var(--border-color, hsl(234 14% 74% / 50%));
+  }
+}
+
+.cta {
+  display: block;
+  margin-top: 2rem;
+  padding-block: 0.75rem;
+  width: 100%;
+  border-radius: 5px;
+  background-image: var(--cta-bg, var(--gradient));
+  box-shadow: var(--shadow-1);
+  color: var(--cta-color, white);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    text-decoration: underline;
+    scale: 1.05;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
