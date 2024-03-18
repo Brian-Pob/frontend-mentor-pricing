@@ -33,7 +33,8 @@ body {
   flex-direction: row;
   min-height: 100vh;
   z-index: -1;
-
+  overflow: hidden;
+  
   & > svg {
     flex: 1;
     transition: margin-right 50ms ease-in-out, opacity 50ms ease-in-out;
