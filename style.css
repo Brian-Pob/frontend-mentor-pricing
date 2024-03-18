@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap")
 layer(demo.base);
-@import url(https://cdn.jsdelivr.net/gh/Brian-Pob/utilities/reset.min.css)
-layer(demo.base);
-@import "https://unpkg.com/open-props/shadows.min.css" layer(demo.base);
+@import url("https://cdn.jsdelivr.net/gh/Brian-Pob/utilities/reset.min.css") layer(demo.base);
+@import url("https://unpkg.com/open-props/shadows.min.css") layer(demo.base);
 
 :root {
   --gradient: linear-gradient(to right, hsl(236, 72%, 79%), hsl(237, 63%, 64%));
@@ -133,15 +132,19 @@ main:has(input[type="radio"]:nth-child(1):is(:checked)) .monthly {
 
 .price-card-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  -webkit-margin-before: 1rem;
-          margin-block-start: 1rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+  grid-template-columns: 1fr;
     gap: 2rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    -webkit-margin-before: 1rem;
+    margin-block-start: 1rem;
+    gap: 0;
+    
   }
 }
+
+
 
 .price-card {
   text-align: center;
